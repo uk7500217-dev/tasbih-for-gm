@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tasbih</title>
+</head>
+
+<body>
+    <section class="scene active" id="tasbih-scene"
+        style="background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);">
+        <div
+            style="text-align: center; width: 100%; max-width: 400px; padding: 30px; border-radius: 50px; background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--soft-pink); margin-bottom: 10px;">Digital
+                Tasbih
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 30px;">In loving memory of Grandmother</p>
+
+            <div id="counter-display"
+                style="font-size: 5rem; font-weight: 600; color: white; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 179, 198, 0.3);">
+                0</div>
+
+            <button id="tap-btn"
+                style="width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--soft-pink); background: transparent; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 0 15px rgba(255, 179, 198, 0.2); outline: none;">
+                TAP
+            </button>
+
+            <div style="margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+                <button id="reset-btn"
+                    style="background: transparent; border: 1px solid var(--muted); color: var(--muted); padding: 8px 20px; border-radius: 20px; cursor: pointer;">Reset</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const tapBtn = document.getElementById('tap-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const display = document.getElementById('counter-display');
+
+        let count = 0;
+
+        // Tap Logic
+        tapBtn.addEventListener('click', () => {
+            count++;
+            display.textContent = count;
+
+            // Haptic-like visual feedback
+            tapBtn.style.transform = "scale(0.95)";
+            display.style.color = "var(--soft-pink)";
+
+            setTimeout(() => {
+                tapBtn.style.transform = "scale(1)";
+                display.style.color = "white";
+            }, 100);
+
+            // Optional: Every 33 or 100 clicks, make it glow brighter
+            if (count % 33 === 0) {
+                display.style.textShadow = "0 0 40px #ff4d6d";
+            }
+        });
+
+        // Reset Logic
+        resetBtn.addEventListener('click', () => {
+            if (confirm("Start a new cycle?")) {
+                count = 0;
+                display.textContent = count;
+            }
+        });
+    </script>
+</body>
+
+</html>
